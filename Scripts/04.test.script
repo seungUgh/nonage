@@ -1,0 +1,34 @@
+-----VIEW
+-- 신상품
+--rownum 입력한 순으로...
+create or replace view new_pro_view
+as
+SELECT no, name, SALEPRICE, image 
+from( select rownum, NO, name, SALEPRICE, image 
+      from product  
+      where del_yn='y' 
+      order by REG_DATE desc)
+where  rownum <=4;
+
+SELECT NO, NAME, SALEPRICE, IMAGE from new_pro_view;
+
+
+--베스트상품
+create or replace view best_pro_view
+as
+select no, name, saleprice, image 
+from( select rownum, no, name, saleprice, image 
+      from product  
+      where best_yn='y' 
+      order by reg_date desc)
+where  rownum <=4;
+
+SELECT NO, name, saleprice, image FROM best_pro_view;
+
+SELECT NO, NAME, KIND, PRICE, SALEPRICE, MARGIN, CONTENT, IMAGE, DEL_YN, BEST_YN, REG_DATE FROM PRODUCT WHERE NO =?;
+
+SELECT * FROM PRODUCT;
+
+SELECT NO, NAME, KIND, PRICE, SALEPRICE, MARGIN, CONTENT, IMAGE, DEL_YN, BEST_YN, REG_DATE FROM PRODUCT WHERE KIND =?;
+
+
